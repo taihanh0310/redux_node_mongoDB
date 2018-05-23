@@ -2,9 +2,12 @@
 
 import React from 'react';
 import {connect} from 'react-redux';
+import {getBooks} from '../../actions/booksActions';
+import {bindActionCreators} from 'redux'
 
 class BooksList extends React.Component {
     componentDidMount(){
+        // Dispath a action
         this.props.getBooks();
     }
 
@@ -32,4 +35,12 @@ function mapStateToProps(state){
     }
 }
 // export default BooksList;
-export default connect(mapStateToProps)(BooksList)
+// export default connect(mapStateToProps)(BooksList)
+
+function mapDispatchToProps(dispatch){
+    return bindActionCreators({
+        getBooks: getBooks
+    }, dispatch)
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(BooksList)

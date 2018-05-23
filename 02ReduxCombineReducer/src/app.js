@@ -36,28 +36,6 @@ render(
 	</Provider>, document.getElementById('app')
 );
 
-store.dispatch(postBooks(
-	[{
-			id: 1,
-			title: 'This is the book title',
-			description: 'This is the book description',
-			price: 33.44
-		}, 
-		{
-			id: 2,
-			title: 'This is the second book title',
-			description: 'This is the  second book description',
-			price: 10.44
-		},
-		{
-			id: 3,
-			title: 'This is the third book title',
-			description: 'This is the third book description',
-			price: 30.44
-		}
-	]
-))
-
 // store.dispatch(deleteBooks({id: 3}))
 
 // store.dispatch(updateBooks(
