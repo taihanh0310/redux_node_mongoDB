@@ -5,6 +5,9 @@ import {connect} from 'react-redux';
 import {getBooks} from '../../actions/booksActions';
 import {bindActionCreators} from 'redux'
 
+// react bootstrap component
+import {Grid, Col, Row, Button} from 'react-bootstrap';
+
 class BooksList extends React.Component {
     componentDidMount(){
         // Dispath a action
@@ -18,14 +21,16 @@ class BooksList extends React.Component {
                     <h2>{booksArr.title}</h2>
                     <h2>{booksArr.description}</h2>
                     <h2>{booksArr.price}</h2>
+                    <Button bsStyle='primary'>Buy now</Button>
                 </div>
             )
         })
         return(
-            <div>
-                <h1>Hello react</h1>
-                {booksList}
-            </div>
+            <Grid>
+                <Row style={{marginTop: '15px'}}>
+                    {booksList}
+                </Row>
+            </Grid>
         )
     }
 }
