@@ -43,7 +43,8 @@ export function booksReducers(state = {books:
 
 			// determine at which index in array is the book to be delete
 			const indexToDelete = currentBookToDelete.findIndex(function(book){
-				return book._id == action.payload._id;
+				// return book._id == action.payload._id;
+				return book._id == action.payload
 			})
 
 			// use slide to remove the book at the specified index
