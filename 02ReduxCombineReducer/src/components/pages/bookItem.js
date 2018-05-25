@@ -14,9 +14,30 @@ class BookItem extends React.Component {
 			_id: this.props._id,
 			title: this.props.title,
 			description: this.props.description,
-			price: this.props.price
+			price: this.props.price, 
+			quantity: 1
 		}]
-		this.props.addToCart(book);
+
+		// Check if cart is empty
+		if(this.props.cart.lenght > 0){
+			let _id = this.props._id;
+			let cartIndex = this.props.cart.findIndex(function(cart){
+				return cart._id == _id;
+			});
+
+			// if return -1 there are no item with same id
+
+			if(cartIndex == -1){
+				this.props.addToCart(book);
+			}
+			else{
+				this.props.updateCart(_id, 1);
+			}
+		}
+		// CART IS EMPTY
+		else{
+			this.props.addToCart(book);
+		}
 	}
 
 	render() {
