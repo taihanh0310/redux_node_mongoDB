@@ -8,3 +8,10 @@ export function addToCart(book){
         payload: book
     }
 }
+
+export function deleteCartItem(cart){
+    return {
+        type: 'DELET_CART_ITEM',
+        payload: cart
+    }
+}

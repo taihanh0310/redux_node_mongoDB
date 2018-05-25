@@ -4,26 +4,25 @@
 
 export function booksReducers(state = {books: 
 		[{
-			id: 1,
+			_id: 1,
 			title: 'This is the book title',
 			description: 'This is the book description',
 			price: 33.44
 		}, 
 		{
-			id: 2,
+			_id: 2,
 			title: 'This is the second book title',
 			description: 'This is the  second book description',
 			price: 10.44
 		},
 		{
-			id: 3,
+			_id: 3,
 			title: 'This is the third book title',
 			description: 'This is the third book description',
 			price: 30.44
 		}
 	]
 }, action){
-    debugger;
     switch(action.type) {
 
     	case 'GET_BOOKS': {
@@ -44,7 +43,7 @@ export function booksReducers(state = {books:
 
 			// determine at which index in array is the book to be delete
 			const indexToDelete = currentBookToDelete.findIndex(function(book){
-				return book.id == action.payload.id;
+				return book._id == action.payload._id;
 			})
 
 			// use slide to remove the book at the specified index
@@ -57,15 +56,13 @@ export function booksReducers(state = {books:
 			const currentBookToUpdate = [...state.books];
 
 			const indexToUpdate = currentBookToUpdate.findIndex(function(book){
-				return book.id === action.payload.id;
+				return book._id == action.payload._id;
 			});
 
 			const newBookTpUpdate = {
 				...currentBookToUpdate[indexToUpdate],
 				title: action.payload.title
 			};
-
-			console.log("what is it newBookTpUpdate", newBookTpUpdate);
 
 			return {books: [...currentBookToUpdate.slice(0, indexToUpdate), newBookTpUpdate, 
 				...currentBookToUpdate.slice(indexToUpdate + 1)]};
