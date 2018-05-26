@@ -5,6 +5,9 @@ import React from 'react';
 import {render} from 'react-dom';
 import {Provider} from 'react-redux';
 
+// router
+import {Router, Route, IndexRoute, browserHistory} from 'react-router';
+
 // MIDDLEWARE
 import {applyMiddleware, createStore} from 'redux';
 
@@ -22,9 +25,18 @@ const middleware = applyMiddleware(logger);
 const store = createStore(reducers, middleware);
 
 import BooksList from './components/pages/booksList';
+import Cart from './components/pages/cart';
+import BooksForm from './components/pages/booksForm';
+import Main from './main';
+
+
 
 render(
 	<Provider store={store}>
-	<BooksList />
+		<div className="container">
+			<Menu/>
+			<BooksList />
+			<Footer/>
+		</div>
 	</Provider>, document.getElementById('app')
 );
