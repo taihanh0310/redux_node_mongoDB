@@ -29,14 +29,20 @@ import Cart from './components/pages/cart';
 import BooksForm from './components/pages/booksForm';
 import Main from './main';
 
+const Routes = (
+	<Provider store={store}>
+		<Router history={browserHistory}>
+			<Route path="/" component={Main}>
+				<IndexRoute component={BooksList}/>
+			</Route>
+			<Route path="/admin" component={BooksForm}/>
+			<Route path="/cart" component={Cart}/>
+		</Router>
+	</Provider>
+)
+
 
 
 render(
-	<Provider store={store}>
-		<div className="container">
-			<Menu/>
-			<BooksList />
-			<Footer/>
-		</div>
-	</Provider>, document.getElementById('app')
+	Routes, document.getElementById('app')
 );

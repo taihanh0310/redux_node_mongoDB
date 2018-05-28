@@ -9,7 +9,8 @@ var path = require('path');
 
 app.use(express.static('public'))
 
-app.get('/', function(req, res){
+// app.get('/', function(req, res){
+app.get('*', function(req, res){
 	//003 What Redux is and How React-Redux work together
 	res.sendFile(path.resolve(__dirname, 'public', 'index.html'))
 })

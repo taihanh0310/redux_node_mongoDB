@@ -36,7 +36,7 @@ class BooksList extends React.Component {
             )
         })
         return(
-            <Grid>
+            <Grid className="container_custom">
                 <Row>
                   <Cart/>
                 </Row>
