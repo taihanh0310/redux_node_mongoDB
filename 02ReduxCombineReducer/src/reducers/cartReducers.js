@@ -58,8 +58,8 @@ export function totals(payloadArr){
                             return a + b;
                         }, 0); //start summing from index0
     
-    const totalQty = payloadArr.map(function(qty){
-                            return qty;
+    const totalQty = payloadArr.map(function(cartArr){
+                            return cartArr.quantity;
                         }).reduce(function(a, b){
                             return a + b;
                         }, 0); //start summing from index0
