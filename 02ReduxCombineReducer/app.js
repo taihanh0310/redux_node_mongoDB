@@ -9,9 +9,8 @@ var usersRouter = require('./routes/users');
 
 var app = express();
 
-// view engine setup
-// app.set('views', path.join(__dirname, 'views'));
-// app.set('view engine', 'jade');
+var dbName = "react-shopping-cart";
+var tableBooks = "books";
 
 app.use(logger('dev'));
 app.use(express.json());
@@ -20,65 +19,111 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 // APIs
-var mongoose = require('mongoose');
-mongoose.connect('mongodb://react_books:123456@ds235840.mlab.com:35840/react-shopping-cart');
+// var mongoose = require('mongoose');
+// mongoose.connect('mongodb://react_books:123456@ds235840.mlab.com:35840/react-shopping-cart');
 
-var db = mongoose.connection;
-db.on('error', console.error.bind(console, '#Mongodb - connection error'));
+// var db = mongoose.connection;
+// db.on('error', console.error.bind(console, '#Mongodb - connection error'));
 
-Books = require('./models/books');
-//-----POST BOOKS----------
-app.post('/books', function(req, res){
-  var book = req.body;
-  Books.create(book, function(err, books){
+var mysql      = require('mysql');
+var connection = mysql.createConnection({
+  host     : 'localhost',
+  port: '3306',
+  user     : 'root',
+  password : 'root',
+});
+
+connection.connect(function(err) {
+  if (err) {
+    console.error('error connecting: ' + err.stack);
+    return;
+  }
+
+  console.log('connected as id ' + connection.threadId);
+
+  var sqlCreateDatabase = "CREATE DATABASE IF NOT EXISTS " + dbName;
+  var sqlCreateTable = "CREATE TABLE IF NOT EXISTS " + tableBooks;
+
+  connection.query(sqlCreateDatabase, function(err, result){
     if(err){
       throw err;
     }
-    res.json(books);
-  })
-});
+    connection.query("USE " + dbName, function(err2){
+      if(err2){
+        throw err2;
+      }
 
-app.get('/books', function(req, res){
-  Books.find(function(err, books){
-    if(err){
-      throw err;
-    }
-    res.json(books);
-  });
-});
-
-app.delete('/books/:_id', function(req, res){
-  var query = {_id: req.params._id};
-  Books.remove(query, function(err, books){
-    if(err){
-      throw err;
-    }
-    res.json(books);
-  })
-});
-
-//---->>> UPDATE BOOKS <<<------
-app.put('/books/:_id', function(req, res){
-  var book = req.body;
-  var query = req.params._id;
-  // if the field doesn't exist $set will set a new field
-  var update = {
-  '$set':{
-          title:book.title,
-          description:book.description,
-          image:book.image,
-          price:book.price
+      connection.query(sqlCreateTable, function(err3){
+        if(err3){
+          throw err3;
         }
-  };
-  // When true returns the updated document
-  var options = {new: true};
-  Books.findOneAndUpdate(query, update, options, function(err, books){
-    if(err){
-      throw err;
-    }
-    res.json(books);
+      });
+    });
+    console.log("Database created!");
   });
+
 });
+
+/*//--------------------> mysql connection <----------------------------*/
+app.post('/books', function(req, res){
+  var sql = "INSERT INTO ";
+});
+
+/*//--------------------> end mysql connection <----------------------------*/
+
+// Books = require('./models/books');
+// //-----POST BOOKS----------
+// app.post('/books', function(req, res){
+//   var book = req.body;
+//   Books.create(book, function(err, books){
+//     if(err){
+//       throw err;
+//     }
+//     res.json(books);
+//   })
+// });
+
+// app.get('/books', function(req, res){
+//   Books.find(function(err, books){
+//     if(err){
+//       throw err;
+//     }
+//     res.json(books);
+//   });
+// });
+
+// app.delete('/books/:_id', function(req, res){
+//   var query = {_id: req.params._id};
+//   Books.remove(query, function(err, books){
+//     if(err){
+//       throw err;
+//     }
+//     res.json(books);
+//   })
+// });
+
+// //---->>> UPDATE BOOKS <<<------
+// app.put('/books/:_id', function(req, res){
+//   var book = req.body;
+//   var query = req.params._id;
+//   // if the field doesn't exist $set will set a new field
+//   var update = {
+//   '$set':{
+//           title:book.title,
+//           description:book.description,
+//           image:book.image,
+//           price:book.price
+//         }
+//   };
+//   // When true returns the updated document
+//   var options = {new: true};
+//   Books.findOneAndUpdate(query, update, options, function(err, books){
+//     if(err){
+//       throw err;
+//     }
+//     res.json(books);
+//   });
+// });
 // End APIs
 
 app.get('*', function(req, res){
