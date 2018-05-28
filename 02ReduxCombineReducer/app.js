@@ -22,6 +22,10 @@ app.use(express.static(path.join(__dirname, 'public')));
 // APIs
 var mongoose = require('mongoose');
 mongoose.connect('mongodb://react_books:123456@ds235840.mlab.com:35840/react-shopping-cart');
+
+var db = mongoose.connection;
+db.on('error', console.error.bind(console, '#Mongodb - connection error'));
+
 Books = require('./models/books');
 //-----POST BOOKS----------
 app.post('/books', function(req, res){
@@ -77,10 +81,7 @@ app.put('/books/:_id', function(req, res){
 });
 // End APIs
 
-// app.use('/', indexRouter);
-// app.use('/users', usersRouter);
 app.get('*', function(req, res){
-	//003 What Redux is and How React-Redux work together
 	res.sendFile(path.resolve(__dirname, 'public', 'index.html'))
 })
 
