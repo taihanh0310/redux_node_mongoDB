@@ -15,7 +15,7 @@ class BooksForm extends React.Component {
             title: findDOMNode(this.refs.title).value,
             description: findDOMNode(this.refs.description).value,
             price: findDOMNode(this.refs.price).value,
-            quantity: findDOMNode(this.refs.quantity).value
+            qty: findDOMNode(this.refs.quantity).value
         }];
 
         // call the action

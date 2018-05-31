@@ -5,9 +5,9 @@ var path = require('path');
 var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
+var productsRouter = require('./routes/productRoute');
 
 // PROXY
-var httpProxy = require('http-proxy');
 
 var index = require('./routes/index');
 var users = require('./routes/users');
@@ -20,13 +20,8 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-const apiProxy = httpProxy.createProxyServer({
-  target:'http://localhost:3001'
-});
-app.use('/api', function(req, res){
-  apiProxy.web(req, res);
-});
-// END PROXY
+
+app.use('/api/v1/products', productsRouter);
 
 app.get('*', function(req, res){
 	res.sendFile(path.resolve(__dirname, 'public', 'index.html'))
