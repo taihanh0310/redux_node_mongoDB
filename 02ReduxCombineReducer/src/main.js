@@ -18,7 +18,6 @@ class Main extends React.Component{
 }
 
 function mapStateToProps(state){
-    debugger;
     return {
         totalQuantity: state.cart.totalQuantity
     }

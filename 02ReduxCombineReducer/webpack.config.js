@@ -22,4 +22,14 @@ module.exports = {
       }
     }]
   },
+  resolve: {
+    extensions: ['.js', '.jsx'],
+    modules: [
+      path.resolve('./src'),
+      'node_modules'
+    ],
+    alias: {
+      Config$: path.resolve(__dirname, 'src/common/config/index.js')
+    }
+  }
 };

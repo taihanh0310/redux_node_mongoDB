@@ -1,9 +1,28 @@
 "use strict"
 
+import axios from "axios";
+
 // GET BOOK
-export function getBooks(){
-    return {
-        type: 'GET_BOOKS'
+// export function getBooks(){
+//     return {
+//         type: 'GET_BOOKS'
+//     }
+// }
+export function getBooks() {
+    return function (dispatch) {
+        axios.get("http://localhost:3001/api/v1/products")
+            .then(function (response) {
+                dispatch({
+                    type: "GET_BOOKS",
+                    payload: response.data
+                })
+            })
+            .catch(function (err) {
+                dispatch({
+                    type: "GET_BOOKS_REJECTED",
+                    payload: err
+                })
+            })
     }
 }
 

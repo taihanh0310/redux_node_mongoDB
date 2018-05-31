@@ -2,31 +2,11 @@
 
 // Book reducers
 
-export function booksReducers(state = {books: 
-		[{
-			_id: 1,
-			title: 'This is the book title',
-			description: 'This is the book description',
-			price: 33.44
-		}, 
-		{
-			_id: 2,
-			title: 'This is the second book title',
-			description: 'This is the  second book description',
-			price: 10.44
-		},
-		{
-			_id: 3,
-			title: 'This is the third book title',
-			description: 'This is the third book description',
-			price: 30.44
-		}
-	]
-}, action){
+export function booksReducers(state = {books: []}, action){
     switch(action.type) {
 
     	case 'GET_BOOKS': {
-    		return {...state, books: [...state.books]}
+    		return {...state, books: [...action.payload]}
     		break;
     	}
 
